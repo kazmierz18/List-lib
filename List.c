@@ -22,4 +22,14 @@
         pptr->next=NULL;
         return d;
     }
+    Data List_get_element(List *ptr, int index){
+        int i=0;
+        while(i<index){
+            if(ptr->next==NULL){
+                return NULL;
+            }
+            ptr=ptr->next;
+        }
+        return ptr->data;
+    }
         
