@@ -49,6 +49,30 @@ void test_list_pop(){
         printf("%%TEST_FAILED%% time=0 testname=test_list_pop (List_test) message=Data has not been taken from last element from the list\n");
     }
 }
+void test_get_element(){
+    List l;
+    int data[]={5,2,3};
+    void* result=0;
+    int res=0;
+    List_init(l);
+    List_put(&l,(void*)&data[0]);
+    List_put(&l,(void*)&data[1]);
+    List_put(&l,(void*)&data[2]);
+    result=List_get_element(&l,2);
+    if(result==NULL){
+        printf("%%TEST_FAILED%% time=0 testname=test_get_element (List_test) message=error getting data from valid index element\n");
+        return;
+    }
+    res=*(int*)result;
+    if(res!=data[1]){
+        printf("%%TEST_FAILED%% time=0 testname=test_get_element (List_test) message=Data has not been taken from pointed by index element:its %d but should be %d \n",res,data[1]);
+        return;
+    }
+    result=List_get_element(&l,5);
+    if(result!=NULL){
+        printf("%%TEST_FAILED%% time=0 testname=test_get_element (List_test) message=data has not beens set to null whit index exceeding list number\n");
+    }
+}
 void test_d_list_put(){
     
 }
@@ -83,6 +107,12 @@ int main(int argc, char** argv) {
     test_list_pop();
     toc=clock();
     printf("%%TEST_FINISHED%% time=%.6f test3 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
+    
+    printf("%%TEST_STARTED%% test4 (List_test)\n");
+    tic=clock();
+    test_get_element();
+    toc=clock();
+    printf("%%TEST_FINISHED%% time=%.6f test4 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
     
     main_toc=clock();
     printf("%%SUITE_FINISHED%% time=%.6f\n",(double)(main_toc-main_tic)/CLOCKS_PER_SEC);
