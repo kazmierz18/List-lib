@@ -49,6 +49,7 @@
                 return NULL;
             }
             ptr=ptr->next;
+            i++;
         }
         return ptr->data;
     }
