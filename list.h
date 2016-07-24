@@ -39,12 +39,12 @@ extern "C" {
      */
     typedef struct List_double{
         Data data;
-        struct List *next;
-        struct List *previous;
+        struct List_double *next;
+        struct List_double *previous;
     }List_double;
     
     /*
-     * Adds a new element at the end of the list
+     * Adds a new element at the end of a linked list
      * @ptr: pointer to the begining of the list
      * @d: data to be stored (see note)
      * @return: pointer to the new created element
@@ -53,12 +53,30 @@ extern "C" {
     List* List_put(List* ptr, Data d);
     
     /*
-     * Gets last element of the list an removes it
+     * Gets last element of the linked list an removes it
      * @ptr: pointer to the begining of the list
      * @return: Data of the last element (see note)
      * Note: d is a type Data which is a void pointer, needs to be cast
      */
     Data List_pop(List* ptr);
+    
+    
+    /*
+     * Adds a new element at the end of a double linked list
+     * @ptr: pointer to the begining of the list
+     * @d: data to be stored (see note)
+     * @return: pointer to the new created element
+     * Note: d is a type Data which is a void pointer, needs to be cast
+     */
+    List_double* List_d_put(List_double* ptr, Data d);
+    
+    /*
+     * Gets last element of the double linked list an removes it
+     * @ptr: pointer to the begining of the list
+     * @return: Data of the last element (see note)
+     * Note: d is a type Data which is a void pointer, needs to be cast
+     */
+    Data List_d_pop(List_double* ptr);
     
     /*
      * Gets element from a list
