@@ -88,6 +88,25 @@ extern "C" {
      */
     Data List_get_element(List* ptr,int index);
     
+     /*
+     * Adds element to a list
+     * @ptr: pointer to begining of a list
+     * @d: Data to be add
+     * @return: pointer to the last element
+     * if index exceeds number of elements on the list function returns NULL
+     * Note: d is a type Data which is a void pointer, needs to be cast
+     */
+    List_double* List_c_add(List_double* ptr, Data d);
+    
+    /*
+     * Gets element from a list and removes it
+     * @ptr: pointer to the element to be removed
+     * @return: Data of the  element (see note)
+     * if index exceeds number of elements on the list function returns NULL
+     * Note: d is a type Data which is a void pointer, needs to be cast
+     */
+    Data List_c_remove_element(List* ptr);
+    
 #ifdef	__cplusplus
 }
 #endif
