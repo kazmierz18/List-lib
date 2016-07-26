@@ -82,7 +82,25 @@ void test_d_list_pop(){
 void test_list_get_element(){
     
 }
-
+void test_list_c_add(){
+    List_double l;
+    List_double* lptr;
+    List_double_init(l);
+    int data[]={1,5};
+    int res=0;
+    List_c_add(&l,(void*)&data[0]);
+    if(l.next!=l.previous){
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding first element to the list becase next=%x, previous-%x and both should be: %x\n",l.next,l.previous,&l);
+    }
+    lptr=List_c_add(&l,(void*)&data[1]);
+    if(lptr->next!=&l || lptr->previous!=&l){
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding second elemen to the list becase lptr->next=%x, lptr->previous-%x and both should be: %x\n",l.next,l.previous,&l);
+    }
+    res=*(int*)lptr->data;
+    if(res!=data[1]){
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error geting data from the list, its %d but shold be %d\n",res,data[1]);
+    }
+}
 
 int main(int argc, char** argv) {
     clock_t main_tic, main_toc, tic, toc;
