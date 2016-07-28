@@ -70,4 +70,13 @@
             return ptr->next;
         }
     }
+    Data List_c_remove_element(List_double* ptr){
+        Data d=ptr->data;
+        if(ptr->next!=NULL){
+            ptr->previous->next=ptr->next;
+            ptr->next->previous=ptr->previous;
+        }
+        free(ptr);
+        return d;
+    }
         
