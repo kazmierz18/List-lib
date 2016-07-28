@@ -70,7 +70,7 @@ void test_get_element(){
     }
     result=List_get_element(&l,5);
     if(result!=NULL){
-        printf("%%TEST_FAILED%% time=0 testname=test_get_element (List_test) message=data has not beens set to null whit index exceeding list number\n");
+        printf("%%TEST_FAILED%% time=0 testname=test_get_element (List_test) message=data has not been set to null whit index exceeding list number\n");
     }
 }
 void test_d_list_put(){
@@ -90,17 +90,36 @@ void test_list_c_add(){
     int res=0;
     List_c_add(&l,(void*)&data[0]);
     if(l.next!=l.previous){
-        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding first element to the list becase next=%x, previous-%x and both should be: %x\n",l.next,l.previous,&l);
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding first element to the list because next=%x, previous-%x and both should be: %x\n",l.next,l.previous,&l);
     }
     lptr=List_c_add(&l,(void*)&data[1]);
     if(lptr->next!=&l || lptr->previous!=&l){
-        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding second elemen to the list becase lptr->next=%x, lptr->previous-%x and both should be: %x\n",l.next,l.previous,&l);
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error adding second element to the list because lptr->next=%x, lptr->previous-%x and both should be: %x\n",l.next,l.previous,&l);
     }
     res=*(int*)lptr->data;
     if(res!=data[1]){
-        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error geting data from the list, its %d but shold be %d\n",res,data[1]);
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_add (List_test) message=Error geting data from the list, its %d but should be %d\n",res,data[1]);
     }
 }
+void test_list_c_remove(){
+    List_double l;
+    List_double* lptr, *lptr2;
+    List_double_init(l);
+    int data[]={1,5,4};
+    int res=0;
+    List_c_add(&l,(void*)&data[0]);
+    lptr=List_c_add(&l,(void*)&data[1]);
+    lptr2=List_c_add(lptr,(void*)&data[2]);
+    res=*(int*)List_c_remove_element(lptr);
+    if(res!=data[1]){
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_remove (List_test) message=Error getting value from list its: %d but should be: %d\n",res,data[1]);
+    }
+    res=*(int*)lptr->data;
+    if(&l!= lptr2->previous){
+        printf("%%TEST_FAILED%% time=0 testname=test_list_c_remove (List_test) message=Pointers have not been set properly it is l %x l.n %x l.p %x  , l1 %x l1.n %x l1.p %x \n",&l,l.next,l.previous,lptr2,lptr2->next,lptr2->previous);
+    }
+}
+
 
 int main(int argc, char** argv) {
     clock_t main_tic, main_toc, tic, toc;
@@ -131,6 +150,18 @@ int main(int argc, char** argv) {
     test_get_element();
     toc=clock();
     printf("%%TEST_FINISHED%% time=%.6f test4 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
+    
+    printf("%%TEST_STARTED%% test5 (List_test)\n");
+    tic=clock();
+    test_list_c_add();
+    toc=clock();
+    printf("%%TEST_FINISHED%% time=%.6f test5 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
+
+    printf("%%TEST_STARTED%% test6 (List_test)\n");
+    tic=clock();
+    test_list_c_remove();
+    toc=clock();
+    printf("%%TEST_FINISHED%% time=%.6f test6 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
     
     main_toc=clock();
     printf("%%SUITE_FINISHED%% time=%.6f\n",(double)(main_toc-main_tic)/CLOCKS_PER_SEC);

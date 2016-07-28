@@ -90,7 +90,7 @@ extern "C" {
     
      /*
      * Adds element to a list
-     * @ptr: pointer to begining of a list
+     * @ptr: pointer to element of a list after which new element will be placed
      * @d: Data to be add
      * @return: pointer to the last element
      * if index exceeds number of elements on the list function returns NULL
@@ -105,7 +105,7 @@ extern "C" {
      * if index exceeds number of elements on the list function returns NULL
      * Note: d is a type Data which is a void pointer, needs to be cast
      */
-    Data List_c_remove_element(List* ptr);
+    Data List_c_remove_element(List_double* ptr);
     
 #ifdef	__cplusplus
 }
