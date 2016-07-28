@@ -53,4 +53,21 @@
         }
         return ptr->data;
     }
+    List_double* List_c_add(List_double* ptr, Data d){
+        if(ptr->next==NULL){
+            ptr->data=d;
+            ptr->next=ptr;
+            ptr->previous=ptr;
+            return ptr;
+        }
+        else{
+            List_double* temp_ptr;
+            temp_ptr=ptr->next;
+            ptr->next=malloc(sizeof(List_double));
+            ptr->next->previous=ptr;
+            ptr->next->next=temp_ptr;
+            ptr->next->data=d;
+            return ptr->next;
+        }
+    }
         
