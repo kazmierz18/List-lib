@@ -18,7 +18,7 @@ extern "C" {
     /*
      * macro for initialization ofa  double linked list
      */
-#define List_double_init(ll) do{ll.next=NULL;ll.previous=NULL;}while(0)
+#define List_d_init(ll) do{ll.next=NULL;ll.previous=NULL;}while(0)
     /*
      * Data type definition
      */
