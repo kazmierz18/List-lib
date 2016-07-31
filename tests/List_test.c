@@ -74,10 +74,31 @@ void test_get_element(){
     }
 }
 void test_d_list_put(){
-    
+    List_double l;
+    List_double* lptr;
+    int data[]={5,2,3};
+    List_d_init(l);
+    lptr=List_d_put(&l,(void*)&data[0]);
+    lptr=List_d_put(&l,(void*)&data[1]);
+    lptr=List_d_put(&l,(void*)&data[2]);
+    if(*(int*)lptr->data!=data[2] || lptr->next!=NULL){
+        printf("%%TEST_FAILED%% time=0 testname=test_d_list_put (List_test) message=Data has not been set in the list it s %d but should be %d\n",*(int*)lptr->data,data[2]);
+    }
 }
 void test_d_list_pop(){
-    
+    List_double l;
+    List_double* lptr;
+    int data[]={5,3,4};
+    int result=0;
+    List_d_init(l);
+    List_d_put(&l,(void*)&data[0]);
+    lptr=List_d_put(&l,(void*)&data[1]);
+    List_d_put(&l,(void*)&data[2]);
+    result=*(int*)List_d_pop(&l);
+    printf("%d",result);
+    if(result!=data[2] || lptr->next!=NULL){
+        printf("%%TEST_FAILED%% time=0 testname=test_d_list_pop (List_test) message=Data has not been taken from last element from the list\n");
+    }
 }
 void test_list_get_element(){
     
@@ -85,7 +106,7 @@ void test_list_get_element(){
 void test_list_c_add(){
     List_double l;
     List_double* lptr;
-    List_double_init(l);
+    List_d_init(l);
     int data[]={1,5};
     int res=0;
     List_c_add(&l,(void*)&data[0]);
@@ -104,7 +125,7 @@ void test_list_c_add(){
 void test_list_c_remove(){
     List_double l;
     List_double* lptr, *lptr2;
-    List_double_init(l);
+    List_d_init(l);
     int data[]={1,5,4};
     int res=0;
     List_c_add(&l,(void*)&data[0]);
@@ -160,6 +181,18 @@ int main(int argc, char** argv) {
     printf("%%TEST_STARTED%% test6 (List_test)\n");
     tic=clock();
     test_list_c_remove();
+    toc=clock();
+    printf("%%TEST_FINISHED%% time=%.6f test6 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
+    
+    printf("%%TEST_STARTED%% test6 (List_test)\n");
+    tic=clock();
+    test_d_list_pop();
+    toc=clock();
+    printf("%%TEST_FINISHED%% time=%.6f test6 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
+    
+    printf("%%TEST_STARTED%% test6 (List_test)\n");
+    tic=clock();
+    test_d_list_pop();
     toc=clock();
     printf("%%TEST_FINISHED%% time=%.6f test6 (List_test) \n",(double)(toc-tic)/CLOCKS_PER_SEC);
     
